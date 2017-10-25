@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Shop
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+<ion-searchbar (ionInput)="onSearchInput($event)">
+</ion-searchbar>
+
+  <ion-list>
+    <!-- <button ion-item *ngFor="let prod of products" (click)="productSelected(product)">
+      {{ prod.title }}
+    </button> -->
+
+    <button ion-item *ngFor="let prod of products" (click)="productSelected(prod)">
+
+      <ion-thumbnail item-start>
+        <img src="assets/nin-live.png">
+      </ion-thumbnail>
+      <h2> {{prod.name}}</h2>
+      <p> {{prod.description}}</p>
+
+    </button>
+
+  </ion-list>
+
+</ion-content>
