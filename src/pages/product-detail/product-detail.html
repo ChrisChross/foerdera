@@ -19,57 +19,51 @@
  <ion-list >
     <ion-item  >
       <ion-label stacked>Produkt- Name </ion-label>
-      <ion-input [(ngModel)]="name" name="name" [spFocusNext]="true" type="text"></ion-input>
+      <ion-input [(ngModel)]="selectedProduct.name" name="name" [spFocusNext]="true" type="text"></ion-input>
     </ion-item>
 
     <ion-item >
       <ion-label stacked>Größe</ion-label>
-      <ion-input  [(ngModel)]="email" name="size" [spFocusNext]="true" type="number"></ion-input>
+      <ion-input  [(ngModel)]="selectedProduct.size" name="size" [spFocusNext]="true" type="number"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label stacked>Kontakt</ion-label>
-      <ion-input  [(ngModel)]="contact" [spFocusNext]="true" type="text"></ion-input>
+      <ion-input  [(ngModel)]="selectedProduct.contact" [spFocusNext]="true" type="text"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label stacked>Preis</ion-label>
-      <ion-input  [(ngModel)]="prize" [spFocusNext]="true" type="text"></ion-input>
+      <ion-input  [(ngModel)]="selectedProduct.prize" [spFocusNext]="true" type="text"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label stacked>Kategorie</ion-label>
-      <ion-textarea  [(ngModel)]="category" [spFocusNext]="true" type="text"></ion-textarea>
+      <ion-textarea  [(ngModel)]="selectedProduct.category" [spFocusNext]="true" type="text"></ion-textarea>
     </ion-item>
 
     <ion-item>
       <ion-label stacked>Beschreibung</ion-label>
-      <ion-textarea  [(ngModel)]="description" [spFocusNext]="false" type="text"></ion-textarea>
+      <ion-textarea  [(ngModel)]="selectedProduct.description" [spFocusNext]="false" type="text"></ion-textarea>
     </ion-item>
-
   </ion-list>
 
 
+    <img [src]="selectedProduct.picture" *ngIf="selectedProduct.picture" />
 
-  <button ion-button color="dark" (click)="takePhoto()">Take Photo</button>
-  <img [src]="base64Image2"  *ngIf="base64Image2" />
+  <div>
+    <ion-buttons >
+      <button ion-button full icon-only color="dark" (click)="takePhoto()">
+          <ion-icon name="camera"></ion-icon>
+      </button>
+      <button ion-button full icon-only color="primary" (click)="accessGallery()">
+          <ion-icon name="folder-open"></ion-icon>
+      </button>
+      <button ion-button full icon-only  color="secondary" (click)="changeProduct()">
+          <ion-icon name="checkmark"></ion-icon>
+      </button>
+    </ion-buttons>
 
-    <button ion-button color="primary" (click)="accessGallery()">Open Gallery</button>
-     <img [src]="base64Image" *ngIf="base64Image" />
-
-<!-- </form> -->
-
-<button ion-button color="secondary">Save</button>
-
-<!-- <ion-list>
-  <button ion-item *ngFor="let prod of prods">
-    <ion-thumbnail item-start>
-      <img src="assets/nin-live.png">
-    </ion-thumbnail>
-    <h2> {{prod.name.first}}</h2>
-    <p> {{prod.email}}</p>
-
-  </button>
-</ion-list> -->
+  </div>
 
 </ion-content>

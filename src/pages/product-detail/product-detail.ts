@@ -25,20 +25,16 @@ export class ProductDetailPage {
   prods: any;
   data:any = {};
   picData: any;
-  base64Image:any;
-  base64Image2: any;
-  prodname: string = "";
   selectedProduct: any;
   product:Product;
 
 
 
   constructor(private ProductService: ProductDetailServiceProvider, public camera:Camera, public navCtrl: NavController, public navParams: NavParams) {
-    this.product = this.ProductService.getStuff();
-    this.data.prodname = '';
-    this.data.size = '';
-    this.data.response = '';
-    this.getMessages();
+
+    this.selectedProduct = ProductService.getProduct();
+
+    this.data = this.getMessages();
   }
 
 
@@ -49,12 +45,6 @@ export class ProductDetailPage {
     //this.ProductService.userSettings(this.data.prodname,this.data.size).then(data=>this.data.response = data);
    }
 
-  getStuff(){
-    return this.ProductService.getStuff();
-  }
-
-
-
 
 
   accessGallery(){
@@ -62,7 +52,7 @@ export class ProductDetailPage {
      sourceType: this.camera.PictureSourceType.SAVEDPHOTOALBUM,
      destinationType: this.camera.DestinationType.DATA_URL
     }).then((imageData) => {
-      this.base64Image = 'data:image/jpeg;base64,'+imageData;
+      this.selectedProduct.picture = 'data:image/jpeg;base64,'+imageData;
      }, (err) => {
       console.log(err);
     });
@@ -75,7 +65,7 @@ export class ProductDetailPage {
     encodingType: this.camera.EncodingType.JPEG,
     mediaType: this.camera.MediaType.PICTURE
     }).then((imageData) => {
-       this.base64Image2 = 'data:image/jpeg;base64,' + imageData;
+       this.selectedProduct.picture = 'data:image/jpeg;base64,' + imageData;
     }, (err) => {
        console.log(err);
     });
@@ -85,5 +75,11 @@ export class ProductDetailPage {
     console.log('ionViewDidLoad ProductDetailPage');
   }
 
+  changeProduct(){
+    if(this.selectedProduct!=null){
+      this.ProductService.setProudct(this.selectedProduct);
+    }
+    this.navCtrl.pop();
+  }
 
 }

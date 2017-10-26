@@ -17,10 +17,49 @@ import { Product } from '../../Model/product';
 export class ProductDetailServiceProvider {
 
 data: any = {};
+products: Product[];
+
 
 //private baseUrl : string = "https://subble.de/load.php"; https://randomuser.me/api/?results=10
 
   constructor(private http: Http, public product:Product) {
+    this.products = [];
+    for (let i = 1; i < 3; i++) {
+      this.products.push({name:"chris"+i, size:40*i, contact:"chris@raubvoegel.de", prize:5*i/2, category: "Pulli", description:"ich biete Juja", picture:""});
+    }
+    this.product.name = "";
+    this.product.size = 0;
+    this.product.contact = "";
+    this.product.prize = 0;
+    this.product.category = "";
+    this.product.description = "";
+    this.product.picture = "";
+    this.product.productOwner = false;
+  }
+
+
+  public setProudct(product){
+    this.product = product;
+  }
+
+  public getProduct():Product{
+    return this.product;
+  }
+
+  public AddProduct(newProduct: Product){
+    this.products.push(newProduct);
+  }
+
+  public deleteProduct(){
+
+  }
+
+  public getProducts(){
+    return this.products;
+  }
+
+  public findProduct(product){
+
   }
 
 
@@ -37,37 +76,5 @@ data: any = {};
     })
     }
 
-    // return this.http.get(this.baseUrl)
-    // .map(data => { console.log(data);})
-
-    // return this.http.post(this.baseUrl,JSON.stringify(body),{headers: headers})
-    // .map(this.extractData)
-    // .subscribe(data => {console.log(data)});
-
-
-  // public userSettings(name:string, password:string){
-  //
-  //  var headers = new Headers();
-  //  headers.append("Accept", 'application/json');
-  //  headers.append('Content-Type', 'application/json' );
-  //  let options = new RequestOptions({ headers: headers });
-  //  let body = JSON.stringify({
-  //  			email: name,
-  //  			password: password
-  //  		});
-  //
-  //   return new Promise(resolve => { let url = this.baseUrl + "?email=" + name + "&password=" + password;
-  //     this.http.post(url,body,options).subscribe(data=>{
-  //       console.log(data);
-  //       resolve(data.json());
-  //     });
-  //   });
-  //
-	// }
-
-  getStuff(): Product {
-    this.product = [{name:"chris",size:40,contact:"chris@raubvoegel.de",prize:5,category: "Juja", description:"ich biete Juja",picture:""}];
-    return this.product;
-  }
 
 }

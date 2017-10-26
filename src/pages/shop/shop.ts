@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { ProductDetailPage } from '../product-detail/product-detail';
+import { ProductNewPage } from '../product-new/product-new';
 import { Product } from '../../Model/product';
 import { ProductDetailServiceProvider } from '../../providers/product-detail-service/product-detail-service';
 /**
@@ -16,8 +17,9 @@ import { ProductDetailServiceProvider } from '../../providers/product-detail-ser
 })
 export class ShopPage {
 
-  selectedProduct: any;
+  selectedProduct: Product;
   products: Product[];
+  serviceData: any;
 
 onSearchInput($event){
 
@@ -25,23 +27,24 @@ onSearchInput($event){
 
   constructor(private ProductService: ProductDetailServiceProvider, public navCtrl: NavController, public navParams: NavParams) {
 
-    this.selectedProduct = navParams.get('name');
+    this.products = this.ProductService.getProducts();
 
-    this.products = [];
-    for (let i = 1; i < 11; i++) {
-      this.products.push({name:"chris"+i,size:40*i,contact:"chris@raubvoegel.de",prize:5*i/2,description:"ich biete Juja",picture:""});
-    }
   }
-
 
   ionViewDidLoad(){
 
   }
 
-
   productSelected(prod) {
 
+    this.ProductService.setProudct(prod);
     this.navCtrl.push(ProductDetailPage);
+  //  this.navCtrl.push(ProductDetailPage,{selectedProduct: prod});
+  }
+
+  createNewProduct(){
+
+    this.navCtrl.push(ProductNewPage);
   }
 
 

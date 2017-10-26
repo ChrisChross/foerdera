@@ -7,7 +7,8 @@ import { ConfigPage } from '../pages/config/config';
 import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { ShopPage } from '../pages/shop/shop';
-import { ProductDetailPage } from '../pages/product-detail/product-detail'
+import { ProductDetailPage } from '../pages/product-detail/product-detail';
+import { ProductNewPage } from '../pages/product-new/product-new';
 import { TabsPage } from '../pages/tabs/tabs';
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -29,6 +30,7 @@ import { Product } from '..//Model/product';
     HomePage,
     ShopPage,
     ProductDetailPage,
+    ProductNewPage,
     TabsPage,
     FocusNextDirective
   ],
@@ -46,6 +48,7 @@ import { Product } from '..//Model/product';
     HomePage,
     ShopPage,
     ProductDetailPage,
+    ProductNewPage,
     TabsPage
   ],
   providers: [

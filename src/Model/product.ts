@@ -9,7 +9,9 @@ export class Product {
     prize?: number;
     category?: string;
     description?: string;
+    //   base64Image
     picture?: string;
+    productOwner?: boolean;
 
     constructor() {}
 
