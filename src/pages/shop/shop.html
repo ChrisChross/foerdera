@@ -3,29 +3,33 @@
     <ion-title>
       Shop
     </ion-title>
+      <ion-buttons end  >
+        <button ion-button icon-only (click)="createNewProduct()">
+            <ion-icon name="add"></ion-icon>
+        </button>
+      </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
 
-<ion-searchbar (ionInput)="onSearchInput($event)">
+
+<ion-searchbar (ionInput)="onSearchInput()" [(ngModel)]="searchText" debounce="1000">
 </ion-searchbar>
 
   <ion-list>
-    <!-- <button ion-item *ngFor="let prod of products" (click)="productSelected(product)">
-      {{ prod.title }}
-    </button> -->
-
-    <button ion-item *ngFor="let prod of products" (click)="productSelected(prod)">
-
-      <ion-thumbnail item-start>
-        <img src="assets/nin-live.png">
-      </ion-thumbnail>
-      <h2> {{prod.name}}</h2>
-      <p> {{prod.description}}</p>
-
-    </button>
-
+    <ion-item-sliding  *ngFor="let prod of products">
+      <button ion-item (click)="productSelected(prod)">
+        <ion-thumbnail item-start>
+          <img [src]="prod.picture">
+        </ion-thumbnail>
+        <h2> {{prod.name}}</h2>
+        <p> {{prod.description}}</p>
+      </button>
+      <ion-item-options side="right" *ngIf="prod.productOwner == true">
+        <button ion-button color="danger" (click)="delete(prod)">löschen</button>
+      </ion-item-options>
+    </ion-item-sliding >
   </ion-list>
 
 </ion-content>

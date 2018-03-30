@@ -1,0 +1,76 @@
+<!--
+  Generated template for the ProductNewPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Neuer Artikel</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+
+<ion-content padding class="prodpage" >
+
+ <ion-list >
+
+    <ion-item class="item-trns"  >
+      <ion-label  stacked>Produkt- Name </ion-label>
+      <ion-input [(ngModel)]="newProduct.name" name="name" [spFocusNext]="true" type="text"></ion-input>
+    </ion-item>
+
+    <ion-item >
+      <ion-label stacked>Größe</ion-label>
+      <ion-input  [(ngModel)]="newProduct.size" name="size" [spFocusNext]="true" type="number"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Kontakt</ion-label>
+      <ion-input  [(ngModel)]="newProduct.contact" name="contact" [spFocusNext]="true" type="text"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Preis in €</ion-label>
+      <ion-input  [(ngModel)]="newProduct.prize" name="prize" [spFocusNext]="true" type="number"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Kategorie</ion-label>
+      <ion-select [(ngModel)]="newProduct.category"  [spFocusNext]="true" type="text">
+          <ion-option *ngFor="let cat of Categorys"  [value]="cat.title">{{cat.title}}</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Beschreibung</ion-label>
+      <ion-textarea  [(ngModel)]="newProduct.description" name="description" [spFocusNext]="false" type="text"></ion-textarea>
+    </ion-item>
+
+  </ion-list>
+
+  <img center [src]="newProduct.picture" *ngIf="newProduct.picture" />
+
+<div>
+  <ion-buttons >
+    <button ion-button full icon-only color="dark" (click)="takePhoto()">
+        <ion-icon name="camera"></ion-icon>
+    </button>
+    <button ion-button full icon-only color="primary" (click)="accessGallery()">
+        <ion-icon name="folder-open"></ion-icon>
+    </button>
+    <button ion-button full icon-only  color="secondary" (click)="AddProduct()">
+        <ion-icon name="checkmark"></ion-icon>
+    </button>
+  </ion-buttons>
+
+</div>
+
+
+<!-- </form> -->
+
+
+</ion-content>

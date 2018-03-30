@@ -4,15 +4,39 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <h2>Wilkommen beim Förderkreis!</h2>
-  <p>
-    Mit dieser App siehst du aktuelle Termine.
-    Du kannst dich auserdem direkt anmelden und partizipieren.
-  </p>
-  <p>
-    Außerdem hast du alle aktuellen Angebote für Gebrauchtwaren
-    (Juscha etc.) für dich oder dein Kind im Überblick. Kannst
-    aber genauso Angebote einstellen.
-  </p>
+<ion-content >
+
+
+  <ion-list>
+    <ion-item-group >
+        <img style="width:100%; hight:50%;" src="assets/sonne.jpg">
+    </ion-item-group>
+
+    <ion-item-group >
+      <ion-item-divider color="light">
+      <ion-icon name="information-circle"></ion-icon> News</ion-item-divider>
+        <button ion-item  *ngFor="let ne of news" (click)="newsSelected(ne)">
+           <ion-thumbnail item-start>
+           <img [src]="ne.picture">
+          </ion-thumbnail>
+          <h2> {{ne.title}}</h2>
+        </button>
+    </ion-item-group>
+
+    <ion-item-group >
+      <ion-item-divider color="light">
+      <ion-icon name="calendar"></ion-icon> Termine</ion-item-divider>
+      <button ion-item  *ngFor="let termin of termine" (click)="terminSelected(termin)">
+         <ion-thumbnail item-start>
+         <img [src]="termin.picture">
+        </ion-thumbnail>
+        <h2> {{termin.title}}</h2>
+      </button>
+    </ion-item-group>
+  </ion-list>
+
+
+
+
+
 </ion-content>

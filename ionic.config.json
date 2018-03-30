@@ -1,6 +1,6 @@
 {
-  "name": "fapp",
-  "app_id": "",
+  "name": "förderA",
+  "app_id": "1335976127",
   "type": "ionic-angular",
   "integrations": {
     "cordova": {}
