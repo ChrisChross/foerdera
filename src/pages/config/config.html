@@ -11,25 +11,27 @@
 <div padding >
   <h1> Entwicklung der App </h1>
   <span> Die App wurde von Christian Klose entwickelt. </span> <br>
-  <span> Das Logo wurde von Micha Bleicher produziert. </span>
+  <span> Das Logo wurde von Micha Bleicher designed. </span>
 </div>
 
 <ion-list>
-  <ion-item-group>
+  <!-- <ion-item-group>
     <ion-item-divider color="light"></ion-item-divider>
-    <button ion-item>
-    <ion-icon name="person" style="color:blue" item-start></ion-icon>
-      Account</button>
+    <button ion-item (click)="loadAccount">Account</button>
     <button ion-item>Mitteilungen</button>
-    <button ion-item>Daten- und Speichernutzung</button>
-  </ion-item-group>
+    <button ion-item (click)="loadDatenUndSpeicher()">Daten- und Speichernutzung</button>
+  </ion-item-group> -->
 
   <ion-item-group>
     <ion-item-divider color="light"></ion-item-divider>
-    <button ion-item>Kontaktieren</button>
-    <button ion-item>Nutzungsbedingungen und Datenschutzrichtlinien</button>
-    <button ion-item>Freunde Informieren</button>
+    <button ion-item [navPush]="pushContactPage">Kontakt</button>
+    <button ion-item [navPush]="pushNutzungPage">Nutzungsbedingungen und Datenschutzrichtlinien</button>
+    <!-- <button ion-item [navPush]="pushLizensenPage">Lizensen</button> -->
+    <!-- <button ion-item>Freunde Informieren</button> -->
   </ion-item-group>
+
 </ion-list>
-<div padding > <span> © 2017 Christian Klose - All rights reserved. </span> </div>
+
+ <div padding > <span> © 2018 Christian Klose - All rights reserved. </span> </div>
+
 </ion-content>

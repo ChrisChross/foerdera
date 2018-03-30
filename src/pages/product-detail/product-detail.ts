@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { Camera } from '@ionic-native/camera';
 import { ProductDetailServiceProvider } from '../../providers/product-detail-service/product-detail-service';
-import { Product } from '../../Model/product';
+
 
 //import { ImagePicker } from '@ionic-native/image-picker';
 
@@ -24,26 +24,26 @@ export class ProductDetailPage {
 
   prods: any;
   data:any = {};
-  picData: any;
   selectedProduct: any;
-  product:Product;
+  Categorys: Array<{ title: string }>;
 
-
-
-  constructor(private ProductService: ProductDetailServiceProvider, public camera:Camera, public navCtrl: NavController, public navParams: NavParams) {
+   constructor(private ProductService: ProductDetailServiceProvider, public camera:Camera, public navCtrl: NavController, public navParams: NavParams) {
 
     this.selectedProduct = ProductService.getProduct();
+    this.Categorys = [
+      {title:'JuJa'},
+      {title:'Troja'},
+      {title:'Hemd'},
+      {title:'T-Shirts'},
+      {title:'kurze Hose'},
+      {title:'lange Hose'},
+      {title:'Abzeichen'},
+      {title:'Rucksack und Zubehör'},
+      {title:'Sonstiges'}
+    ];
 
-    this.data = this.getMessages();
   }
 
-
-
-  getMessages() {
-    this.ProductService.getMessages().then(data => this.prods = data);
-    console.log(this.prods);
-    //this.ProductService.userSettings(this.data.prodname,this.data.size).then(data=>this.data.response = data);
-   }
 
 
 

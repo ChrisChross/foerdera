@@ -4,6 +4,7 @@ import { ProductDetailPage } from '../product-detail/product-detail';
 import { ProductNewPage } from '../product-new/product-new';
 import { Product } from '../../Model/product';
 import { ProductDetailServiceProvider } from '../../providers/product-detail-service/product-detail-service';
+import { LoadingController } from 'ionic-angular';
 /**
  * Generated class for the ShopPage page.
  *
@@ -20,14 +21,15 @@ export class ShopPage {
   selectedProduct: Product;
   products: Product[];
   serviceData: any;
+  searchText: string;
 
-onSearchInput($event){
 
-}
+  constructor(public loadingController:LoadingController, private ProductService: ProductDetailServiceProvider, public navCtrl: NavController, public navParams: NavParams) {
 
-  constructor(private ProductService: ProductDetailServiceProvider, public navCtrl: NavController, public navParams: NavParams) {
-
-    this.products = this.ProductService.getProducts();
+    this.searchText = "";
+    let loading = this.loadingController.create({content : "Lade Daten, bitte warten..."});
+    loading.present();
+    this.ProductService.getProducts().then(data => {this.products = data; loading.dismiss();});
 
   }
 
@@ -47,6 +49,15 @@ onSearchInput($event){
     this.navCtrl.push(ProductNewPage);
   }
 
+  delete(prod){
+    let loading = this.loadingController.create({content : "Lösche Produkt, bitte warten..."});
+    loading.present();
+    this.ProductService.deleteProduct(prod).then(data => {this.products = data;loading.dismiss();})
+  }
+
+  onSearchInput(){
+    this.ProductService.findProducts(this.searchText).then(data => {this.products = data;})
+  }
 
 
   }

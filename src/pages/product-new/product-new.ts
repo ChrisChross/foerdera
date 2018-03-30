@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { Product } from '../../Model/product';
 import { ProductDetailServiceProvider } from '../../providers/product-detail-service/product-detail-service';
 import { Camera } from '@ionic-native/camera';
+import { Product } from '../../Model/product';
+import { LoadingController } from 'ionic-angular';
 
 /**
  * Generated class for the ProductNewPage page.
@@ -18,13 +19,28 @@ import { Camera } from '@ionic-native/camera';
 })
 export class ProductNewPage {
 
-base64Image: any;
 newProduct: Product;
+prods:any;
+data: any;
+Categorys: Array<{ title: string }>;
 
+  constructor(public loadingController:LoadingController, private ProductService: ProductDetailServiceProvider, private camera: Camera, public navCtrl: NavController, public navParams: NavParams) {
 
-  constructor(private ProductService: ProductDetailServiceProvider, private camera: Camera, public navCtrl: NavController, public navParams: NavParams) {
     this.newProduct = [];
+    this.Categorys = [
+      {title:'JuJa'},
+      {title:'Troja'},
+      {title:'Hemd'},
+      {title:'T-Shirts'},
+      {title:'kurze Hose'},
+      {title:'lange Hose'},
+      {title:'Abzeichen'},
+      {title:'Rucksack und Zubehör'},
+      {title:'Sonstiges'}
+    ];
+
   }
+
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ProductNewPage');
@@ -34,9 +50,12 @@ newProduct: Product;
   accessGallery(){
    this.camera.getPicture({
      sourceType: this.camera.PictureSourceType.SAVEDPHOTOALBUM,
-     destinationType: this.camera.DestinationType.DATA_URL
+     destinationType: this.camera.DestinationType.DATA_URL,
+     targetWidth: 300,
+     targetHeight: 300
     }).then((imageData) => {
-      this.base64Image = 'data:image/jpeg;base64,'+imageData;
+      this.newProduct.picture = 'data:image/jpeg;base64,'+imageData;
+      console.log(this.newProduct.picture);
      }, (err) => {
       console.log(err);
     });
@@ -47,18 +66,26 @@ newProduct: Product;
     sourceType: this.camera.PictureSourceType.CAMERA,
     destinationType: this.camera.DestinationType.DATA_URL,
     encodingType: this.camera.EncodingType.JPEG,
-    mediaType: this.camera.MediaType.PICTURE
+    mediaType: this.camera.MediaType.PICTURE,
+    targetWidth: 300,
+    targetHeight: 300
     }).then((imageData) => {
-       this.base64Image = 'data:image/jpeg;base64,' + imageData;
+       this.newProduct.picture = 'data:image/jpeg;base64,' + imageData;
     }, (err) => {
        console.log(err);
     });
   }
 
-  AddProduct(){
-    this.ProductService.AddProduct(this.newProduct);
-    this.navCtrl.pop();
 
+  AddProduct(){
+
+    let loading = this.loadingController.create({content : "Logging in ,please wait..."});
+    loading.present();
+    this.newProduct.productOwner = 1;
+
+    this.ProductService.AddProduct(this.newProduct).then(() => { loading.dismiss(); });
+    this.navCtrl.pop();
   }
+
 
 }

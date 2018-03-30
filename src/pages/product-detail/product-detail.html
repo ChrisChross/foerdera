@@ -17,6 +17,7 @@
 
 
  <ion-list >
+
     <ion-item  >
       <ion-label stacked>Produkt- Name </ion-label>
       <ion-input [(ngModel)]="selectedProduct.name" name="name" [spFocusNext]="true" type="text"></ion-input>
@@ -33,13 +34,15 @@
     </ion-item>
 
     <ion-item>
-      <ion-label stacked>Preis</ion-label>
+      <ion-label stacked>Preis in €</ion-label>
       <ion-input  [(ngModel)]="selectedProduct.prize" [spFocusNext]="true" type="text"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label stacked>Kategorie</ion-label>
-      <ion-textarea  [(ngModel)]="selectedProduct.category" [spFocusNext]="true" type="text"></ion-textarea>
+      <ion-select [(ngModel)]="selectedProduct.category"  [spFocusNext]="true" type="text">
+          <ion-option *ngFor="let cat of Categorys"  [value]="cat.title">{{cat.title}}</ion-option>
+      </ion-select>
     </ion-item>
 
     <ion-item>

@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
+import { Http } from '@angular/http';
 //import { HTTP } from '@ionic-native/http';
 import { Product } from '../../Model/product';
-
 
 /*
   Generated class for the ProductDetailServiceProvider provider.
@@ -16,25 +15,17 @@ import { Product } from '../../Model/product';
 @Injectable()
 export class ProductDetailServiceProvider {
 
-data: any = {};
+data: number;
+foundProducts: string;
 products: Product[];
+baseUrl: string = 'https://conntectc.de/user_Data/';
+dataa:any;
+//private baseUrl : string = "https://subble.de/load.php";https://conntectc.de/user_Data/newProduct.php https://randomuser.me/api/?results=10
 
 
-//private baseUrl : string = "https://subble.de/load.php"; https://randomuser.me/api/?results=10
 
-  constructor(private http: Http, public product:Product) {
+  constructor( private http: Http, public product:Product) {
     this.products = [];
-    for (let i = 1; i < 3; i++) {
-      this.products.push({name:"chris"+i, size:40*i, contact:"chris@raubvoegel.de", prize:5*i/2, category: "Pulli", description:"ich biete Juja", picture:""});
-    }
-    this.product.name = "";
-    this.product.size = 0;
-    this.product.contact = "";
-    this.product.prize = 0;
-    this.product.category = "";
-    this.product.description = "";
-    this.product.picture = "";
-    this.product.productOwner = false;
   }
 
 
@@ -46,35 +37,54 @@ products: Product[];
     return this.product;
   }
 
-  public AddProduct(newProduct: Product){
-    this.products.push(newProduct);
-  }
+  public AddProduct(newProduct:Product): Promise<{}> {
 
-  public deleteProduct(){
+    var myData = JSON.stringify({name: newProduct.name, size: newProduct.size, contact: newProduct.contact, prize: newProduct.prize, category: newProduct.category, description: newProduct.description, picture: newProduct.picture, productOwner: newProduct.productOwner });
 
-  }
-
-  public getProducts(){
-    return this.products;
-  }
-
-  public findProduct(product){
-
-  }
-
-
-  getMessages() {
-
-    return new Promise (resolve => {
-      this.http.get('https://conntectc.de/user_Data/userRegister.php')
+    return new Promise  (resolve => { this.http.post(this.baseUrl + 'newProduct.php', myData)
       .map(res => res.json())
-      .subscribe(data => {
-        console.log(data);
-        this.data = data.results;
-       resolve(this.data);
+      .subscribe( data => { this.data = data;
+        newProduct.id = this.data;
+        this.products.push(newProduct);
+         console.log(newProduct.id);
+         resolve(this.data); }, error => { console.log("Oooops!");
       })
-    })
-    }
+    });
 
+  }
+
+
+  public deleteProduct(prod):Promise<Product[]>{
+    var myData = JSON.stringify({prodid: prod.id});
+    return new Promise (resolve => {this.http.post(this.baseUrl + 'deleteProduct.php', myData)
+      .map(res => res.json())
+      .subscribe( data => { this.products = data;
+      resolve(this.products);}, error => { console.log(error);
+      })
+    });
+  }
+
+  public getProducts(): Promise<Product[]>{
+    //return this.products;
+    return new Promise (resolve =>{
+      this.http.get(this.baseUrl + 'getProducts.php')
+      .map(res => res.json())
+      .subscribe( data => {
+        console.log(data);
+        this.products = data;
+        resolve(this.products);}, error => { console.log(error);
+      })
+    });
+  }
+
+  public findProducts(name): Promise<Product[]>{
+    var myData = JSON.stringify({name: name});
+    return new Promise (resolve => {this.http.post(this.baseUrl + 'search.php', myData)
+      .map(res => res.json())
+      .subscribe( data => { this.products = data;
+      resolve(this.products);}, error => { console.log(error);
+      })
+    });
+  }
 
 }

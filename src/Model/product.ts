@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class Product {
 
+    id?: number;
     name?: string;
     size?: number;
     contact?: string;
@@ -11,7 +12,8 @@ export class Product {
     description?: string;
     //   base64Image
     picture?: string;
-    productOwner?: boolean;
+    productOwner?: number;
+
 
     constructor() {}
 
