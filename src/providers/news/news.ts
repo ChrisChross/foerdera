@@ -29,7 +29,7 @@ export class NewsProvider {
 
  public getNews(): Promise<News[]>{
 
-    return new Promise (resolve =>{
+    return new Promise (resolve => {
       this.http.get(this.baseUrl + 'news.php')
       .map(res => res.json())
       .subscribe( data => {
